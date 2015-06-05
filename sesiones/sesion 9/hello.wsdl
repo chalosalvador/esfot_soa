@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions targetNamespace="http://jaxwsHelloServer/" name="HelloService">
+  
+  <types>
+    <xsd:schema>
+    <xsd:import namespace="http://jaxwsHelloServer/" schemaLocation="http://localhost:8080/JAXWSHelloAppServer/jaxwsHello?xsd=1"/>
+    </xsd:schema>
+  </types>
+  
+  <message name="sayHello">
+    <part name="parameters" element="tns:sayHello"/>
+  </message>
+  
+  <message name="sayHelloResponse">
+    <part name="parameters" element="tns:sayHelloResponse"/>
+  </message>
+  
+  <portType name="Hello">
+    <operation name="sayHello">
+      <input wsam:Action="http://jaxwsHelloServer/Hello/sayHelloRequest" message="tns:sayHello"/>
+      <output wsam:Action="http://jaxwsHelloServer/Hello/sayHelloResponse" message="tns:sayHelloResponse"/>
+    </operation>
+  </portType>
+  
+  <binding name="HelloPortBinding" type="tns:Hello">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+      <operation name="sayHello">
+        <soap:operation soapAction=""/>
+        <input>
+          <soap:body use="literal"/>
+        </input>
+          
+        <output>
+          <soap:body use="literal"/>
+        </output>
+      </operation>
+  </binding>
+
+  <service name="HelloService">
+    <port name="HelloPort" binding="tns:HelloPortBinding">
+      <soap:address location="http://localhost:8080/JAXWSHelloAppServer/jaxwsHello"/>
+    </port>
+  </service>
+</definitions>
