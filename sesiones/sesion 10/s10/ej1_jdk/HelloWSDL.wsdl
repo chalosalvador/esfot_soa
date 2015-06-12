@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="HelloWSDL" targetNamespace="http://j2ee.netbeans.org/wsdl/Hello2/java/HelloWSDL"
+    xmlns="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://j2ee.netbeans.org/wsdl/Hello2/java/HelloWSDL" xmlns:ns="http://xml.netbeans.org/schema/hello" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+    <types>
+        <xsd:schema targetNamespace="http://j2ee.netbeans.org/wsdl/Hello2/java/HelloWSDL">
+            <xsd:import namespace="http://xml.netbeans.org/schema/hello" schemaLocation="hello.xsd"/>
+        </xsd:schema>
+    </types>
+    <message name="sayHelloRequest">
+        <part name="parameters" element="ns:sayHello"/>
+    </message>
+    <message name="sayHelloResponse">
+        <part name="parameters" element="ns:sayHelloResponse"/>
+    </message>
+    <portType name="Hello">
+        <operation name="sayHello">
+            <input name="input1" message="tns:sayHelloRequest"/>
+            <output name="output1" message="tns:sayHelloResponse"/>
+        </operation>
+    </portType>
+    <binding name="HelloPortBinding" type="tns:Hello">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="sayHello">
+            <soap:operation/>
+            <input name="input1">
+                <soap:body use="literal"/>
+            </input>
+            <output name="output1">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+    <service name="HelloService">
+        <port name="HelloPort" binding="tns:HelloPortBinding">
+            <soap:address location="http://localhost:${HttpDefaultPort}/HelloService/HelloPort"/>
+        </port>
+    </service>
+</definitions>
